@@ -1,0 +1,11 @@
+{
+  "name": "Fit2Fit",
+  "short_name": "Fit2Fit",
+  "description": "Entrenamiento y nutrición con IA",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#14181a",
+  "theme_color": "#14181a",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

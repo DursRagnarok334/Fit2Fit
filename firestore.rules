@@ -1,0 +1,59 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+    function inRange(v, lo, hi) {
+      return v is number && v >= lo && v <= hi;
+    }
+    function optionalRange(d, key, lo, hi) {
+      return !(key in d) || inRange(d[key], lo, hi);
+    }
+
+    // Perfil del usuario: solo su dueño.
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create, update: if isOwner(uid)
+        && optionalRange(request.resource.data, 'age', 14, 100)
+        && optionalRange(request.resource.data, 'heightCm', 100, 230);
+      allow delete: if false;
+
+      // Historial de medidas: cada registro es un documento con fecha.
+      match /measurements/{id} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && request.resource.data.date is string
+          && inRange(request.resource.data.weightKg, 20, 400)
+          && optionalRange(request.resource.data, 'waistCm', 10, 250)
+          && optionalRange(request.resource.data, 'hipCm', 10, 250)
+          && optionalRange(request.resource.data, 'thighCm', 10, 250)
+          && optionalRange(request.resource.data, 'armCm', 10, 250)
+          && optionalRange(request.resource.data, 'chestCm', 10, 250)
+          && optionalRange(request.resource.data, 'calfCm', 10, 250);
+      }
+
+      // Resto de colecciones del usuario (se validarán campo a campo al implementarse).
+      // Se listan una a una: un comodín recursivo se sumaría a las reglas de arriba y saltaría sus validaciones.
+      match /goals/{id} { allow read, write: if isOwner(uid); }
+      match /interviews/{id} { allow read, write: if isOwner(uid); }
+      match /diagnoses/{id} { allow read, write: if isOwner(uid); }
+      match /plans/{id} { allow read, write: if isOwner(uid); }
+      match /workoutLogs/{id} { allow read, write: if isOwner(uid); }
+      match /nutritionLogs/{id} { allow read, write: if isOwner(uid); }
+      match /exports/{id} { allow read, write: if isOwner(uid); }
+    }
+
+    // Catálogos de solo lectura para usuarios autenticados.
+    match /exercises/{id} { allow read: if signedIn(); allow write: if false; }
+    match /equipment/{id}  { allow read: if signedIn(); allow write: if false; }
+
+    // Cualquier otra ruta queda cerrada.
+    match /{path=**} { allow read, write: if false; }
+  }
+}
