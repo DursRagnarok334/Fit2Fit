@@ -4,6 +4,7 @@ import { useAuth } from "../features/auth/AuthContext";
 import { Shell } from "../components/layout/Shell";
 import { DashboardPage } from "../features/dashboard/DashboardPage";
 import { ProfilePage } from "../features/profile/ProfilePage";
+import { AssistantPage } from "../features/ai-coach/AssistantPage";
 import { ComingSoon } from "../features/placeholders/ComingSoon";
 import { SettingsPage } from "../features/placeholders/SettingsPage";
 
@@ -46,7 +47,7 @@ export function App() {
         <Route path="entrenamiento" element={<ComingSoon title="Entrenamiento" text="Tu plan semanal aparecerá aquí cuando el asistente genere y apruebes tu primera propuesta." />} />
         <Route path="nutricion" element={<ComingSoon title="Nutrición" text="El menú, las porciones y la lista de mercado llegan después del plan de entrenamiento." />} />
         <Route path="evolucion" element={<ComingSoon title="Evolución" text="Las gráficas de peso y medidas se activan con la siguiente fase." />} />
-        <Route path="asistente" element={<ComingSoon title="Asistente IA" text="Se activa al conectar el backend seguro con Groq." />} />
+        <Route path="asistente" element={<AssistantPage />} />
         <Route path="configuracion" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

@@ -4,3 +4,5 @@ dist
 .env.local
 .firebase
 *.log
+.dev.vars
+.wrangler

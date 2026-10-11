@@ -3,9 +3,9 @@
 Fases 1 y 2 del plan: base visual responsive (modo día y noche), login con Google, perfil y CRUD de medidas con historial, reglas de Firestore.
 
 ## Requisitos previos (Fase 0)
-1. Proyecto en Firebase: activar **Authentication → Google**, **Firestore** y **Hosting**.
+1. Proyecto en Firebase: activar **Authentication → Google** y **Firestore** (la web se publica en GitHub Pages, no en Firebase Hosting).
 2. Registrar una app web y copiar su configuración a `apps/web/.env.local` (ver `.env.example`).
-3. Authentication → Configuración → Dominios autorizados: `localhost` y el dominio de Hosting.
+3. Authentication → Configuración → Dominios autorizados: `localhost` y `USUARIO.github.io`.
 
 ## Desarrollo
 ```bash
@@ -31,3 +31,15 @@ Las reglas de Firestore se publican aparte: `firebase deploy --only firestore:ru
 - `apps/web`: React + TypeScript + Vite.
 - `firestore.rules`: reglas por usuario (`users/{uid}/...`).
 - Siguiente: Worker de Cloudflare para Groq (Fase 5) y registro por pasos con la entrevista.
+
+## Asistente IA (Fase 5): Worker de Cloudflare + Groq
+```bash
+cd backend/worker
+npm install
+npx wrangler login
+# editar wrangler.toml: FIREBASE_PROJECT_ID y ALLOWED_ORIGINS
+npx wrangler secret put GROQ_API_KEY     # pegar la clave cuando la pida; nunca en archivos ni en GitHub
+npx wrangler deploy                      # imprime la URL del Worker
+```
+Luego poner esa URL en `apps/web/.env.local` y en la variable de GitHub `VITE_AI_WORKER_URL`.
+El Worker verifica el token de Firebase, limita las peticiones por usuario y llama a Groq; la clave de Groq vive solo como secreto del Worker.

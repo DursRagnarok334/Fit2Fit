@@ -1,0 +1,19 @@
+name = "fit2fit-ai"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+[vars]
+# ID de tu proyecto de Firebase (Configuración del proyecto > General)
+FIREBASE_PROJECT_ID = "TU_ID_DE_PROYECTO"
+# Orígenes (solo dominio, sin ruta) desde los que la web puede llamar al Worker
+ALLOWED_ORIGINS = "https://dursragnarok334.github.io,http://localhost:5173"
+# Modelo de Groq; se puede cambiar aquí sin tocar el código
+GROQ_MODEL = "openai/gpt-oss-120b"
+
+# Límite por usuario: 10 peticiones cada 60 segundos (aproximado, por ubicación de Cloudflare)
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+[ratelimits.simple]
+limit = 10
+period = 60
