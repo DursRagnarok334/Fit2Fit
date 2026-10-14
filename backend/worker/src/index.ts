@@ -185,7 +185,7 @@ export default {
       return json({ error: "El asistente está al límite de uso. Intenta de nuevo en unos minutos." }, 429, origin, { "Retry-After": "60" });
     }
     if (!groqRes.ok) {
-      console.error("Groq respondió", groqRes.status);
+      console.error("Groq respondió", groqRes.status, (await groqRes.text()).slice(0, 300));
       return json({ error: "El asistente no está disponible por ahora." }, 502, origin);
     }
 
