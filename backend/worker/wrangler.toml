@@ -4,7 +4,7 @@ compatibility_date = "2026-09-01"
 
 [vars]
 # ID de tu proyecto de Firebase (Configuración del proyecto > General)
-FIREBASE_PROJECT_ID = "TU_ID_DE_PROYECTO"
+FIREBASE_PROJECT_ID = "fit2fit-d7964"
 # Orígenes (solo dominio, sin ruta) desde los que la web puede llamar al Worker
 ALLOWED_ORIGINS = "https://dursragnarok334.github.io,http://localhost:5173"
 # Modelo de Groq; se puede cambiar aquí sin tocar el código
