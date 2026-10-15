@@ -135,3 +135,9 @@ td.actions { text-align: right; }
 
 .list { margin: .25rem 0 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: .4rem; }
 .notice { border-left: 4px solid var(--accent); background: var(--surface-2); border-radius: 10px; padding: .8rem 1rem; }
+
+.hint { display: block; font-weight: 400; font-size: .85rem; color: var(--muted); }
+.session { border-top: 1px solid var(--line); padding-top: 1rem; }
+.session h2 { margin-bottom: .1rem; }
+.cardio { list-style: none; margin-left: -1.2rem; padding: .5rem .7rem; background: var(--surface-2); border-radius: 10px; }
+.card label + label, .card .stack > label { margin-top: 0; }

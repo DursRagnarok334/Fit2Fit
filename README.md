@@ -43,3 +43,8 @@ npx wrangler deploy                      # imprime la URL del Worker
 ```
 Luego poner esa URL en `apps/web/.env.local` y en la variable de GitHub `VITE_AI_WORKER_URL`.
 El Worker verifica el token de Firebase, limita las peticiones por usuario y llama a Groq; la clave de Groq vive solo como secreto del Worker.
+
+## Plan de entrenamiento (Fase 5, parte 2)
+- Flujo: diagnóstico → respuestas del usuario → propuesta de plan → **aprobación del usuario** → plan activo en *Entrenamiento*.
+- El Worker valida cada propuesta: solo ejercicios del catálogo (`backend/worker/src/catalog.ts`), límites de series/esfuerzo/descanso, cardio obligatorio en cada sesión y modo conservador si el diagnóstico trae alertas.
+- Después de cambiar el Worker: `cd backend/worker && npx wrangler deploy`.

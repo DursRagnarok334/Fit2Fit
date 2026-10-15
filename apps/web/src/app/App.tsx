@@ -5,6 +5,7 @@ import { Shell } from "../components/layout/Shell";
 import { DashboardPage } from "../features/dashboard/DashboardPage";
 import { ProfilePage } from "../features/profile/ProfilePage";
 import { AssistantPage } from "../features/ai-coach/AssistantPage";
+import { TrainingPage } from "../features/ai-coach/TrainingPage";
 import { ComingSoon } from "../features/placeholders/ComingSoon";
 import { SettingsPage } from "../features/placeholders/SettingsPage";
 
@@ -44,7 +45,7 @@ export function App() {
       <Route element={<Shell />}>
         <Route index element={<DashboardPage />} />
         <Route path="perfil" element={<ProfilePage />} />
-        <Route path="entrenamiento" element={<ComingSoon title="Entrenamiento" text="Tu plan semanal aparecerá aquí cuando el asistente genere y apruebes tu primera propuesta." />} />
+        <Route path="entrenamiento" element={<TrainingPage />} />
         <Route path="nutricion" element={<ComingSoon title="Nutrición" text="El menú, las porciones y la lista de mercado llegan después del plan de entrenamiento." />} />
         <Route path="evolucion" element={<ComingSoon title="Evolución" text="Las gráficas de peso y medidas se activan con la siguiente fase." />} />
         <Route path="asistente" element={<AssistantPage />} />
